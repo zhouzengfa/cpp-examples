@@ -22,6 +22,7 @@ include_directories("${PROJECT_BINARY_DIR}")
 # 添加源文件
 aux_source_directory(. DIR_SOURCES)
 aux_source_directory(./topk DIR_SOURCES)
+aux_source_directory(./signal DIR_SOURCES)
 
 # 库
 #target_link_libraries (test ${EXTRA_LIBS})
