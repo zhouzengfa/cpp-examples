@@ -22,6 +22,9 @@
       <Filter>signal</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="module_log\log_controller.cpp">
+      <Filter>module_log</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="topk\topk.h">
@@ -33,5 +36,11 @@
     <ClInclude Include="argp_parse\argp_parse.h">
       <Filter>argp_parse</Filter>
     </ClInclude>
+    <ClInclude Include="module_log\log_controller.h">
+      <Filter>module_log</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="CMakeLists.txt" />
   </ItemGroup>
 </Project>
