@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="argp_parse">
+      <UniqueIdentifier>{fce706e3-db43-4d89-8ea2-4932b6bc2aa7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="topk">
+      <UniqueIdentifier>{c9a2cf75-49af-4edc-9829-c92d26a2ccaf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="signal">
+      <UniqueIdentifier>{01feaa8c-97ae-4351-9f29-3567385e7bdf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="module_log">
+      <UniqueIdentifier>{19b5c74f-da7c-4ae7-97fb-aa902246567d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="topk\topk.cpp">
+      <Filter>topk</Filter>
+    </ClCompile>
+    <ClCompile Include="signal\signal.cpp">
+      <Filter>signal</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="topk\topk.h">
+      <Filter>topk</Filter>
+    </ClInclude>
+    <ClInclude Include="signal\signal.h">
+      <Filter>signal</Filter>
+    </ClInclude>
+    <ClInclude Include="argp_parse\argp_parse.h">
+      <Filter>argp_parse</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
