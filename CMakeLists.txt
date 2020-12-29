@@ -2,7 +2,7 @@ cmake_minimum_required (VERSION 2.8)
 project (test) 
 
  # 设置c++编译选项
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -Wall -g -std=c++11 ")
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -Wall -g -std=c++11 -pthread")
 
 # 添加预处理器定义
 add_definitions(-DDEBUG) 

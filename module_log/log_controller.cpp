@@ -1,28 +1,17 @@
 ﻿#include "log_controller.h"
 #include <gtest/gtest.h>
 
-TEST(TopK, testMaxTopK)
-{
-	TopK<A*, MaxComp> topk(3);
+DEFINE_LOG(LogModule);
 
-	A* p = new A(2);
-	topk.push(p);
-	p = new A(3);
-	topk.push(p);
-	p = new A(1);
-	topk.push(p);
-	p = new A(4);
-	topk.push(p);
-	p = new A(6);
-	topk.push(p);
-	p = new A(5);
-	topk.push(p);
-	auto list = topk.getTopK();
-	std::cout << std::endl;
-	ASSERT_EQ(3,list.size());
-	ASSERT_EQ(4,list[0]->a);
-	ASSERT_EQ(5,list[1]->a);
-	ASSERT_EQ(6,list[2]->a);
+// 测试用例
+TEST(LogModule, testLogModule)
+{
+	DEBUG_LOG << "test0 ";
+	DEBUG_LOG << "test1 ";
+	LogModule::getInst().UnregisterModule("LogModule");
+	DEBUG_LOG << "test2 ";
+	LogModule::getInst().RegisterModule("LogModule");
+	ERROR_LOG << "test3 ";
 }
 
 LogModule::LogModule()
@@ -44,9 +33,10 @@ LogModule& LogModule::getInst()
 	return inst;
 }
 
-int LogModule::RegisterModule(std::string& moduleName)
+int LogModule::RegisterModule(const char* szName)
 {
-	for (int i= 0; i < m_modules.size(); ++i)
+	std::string moduleName(szName);
+	for (size_t i= 0; i < m_modules.size(); ++i)
 	{
 		if (moduleName == m_modules[i])
 			return i;
@@ -69,6 +59,26 @@ int LogModule::RegisterModule(std::string& moduleName)
 	}
 
 	return index;
+}
+
+bool LogModule::UnregisterModule(const char* szName)
+{
+	std::string moduleName(szName);
+	int index = -1;
+	for (size_t i = 0; i < m_modules.size(); ++i)
+	{
+		if (moduleName != m_modules[i])
+			continue;
+
+		index = i;
+		break;
+	}
+
+	if (index < 0)
+		return false;
+
+	m_bitData[index] = 0;
+	return true;
 }
 
 bool LogModule::needLog(int moduleIndex)
