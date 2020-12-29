@@ -3,6 +3,8 @@
 #include <signal.h>
 #include "../module_log/log_controller.h"
 
+#ifdef __linux__
+
 DEFINE_LOG(SignalMgr)
 
 void handler(int sigNum);
@@ -118,3 +120,5 @@ void handler(int sigNum)
 {
 	SignalMgr::getInst().onSignal(sigNum);
 }
+
+#endif

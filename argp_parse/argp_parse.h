@@ -51,6 +51,8 @@ struct argp_state
 
 *********************************************************************************/
 
+#ifdef __linux__
+
 #include <stdlib.h>
 #include <argp.h>
 
@@ -187,3 +189,5 @@ int test_argp_parse(int argc, char **argv)
 	SILENT = no
 
 *********************************************************/
+
+#endif

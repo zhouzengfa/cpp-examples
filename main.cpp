@@ -26,6 +26,8 @@ int main(int argc, char *argv[])
 	}
 	*/
 
+#ifdef __linux__
 	test_argp_parse(argc, argv);
+#endif
 	return ret;
 }

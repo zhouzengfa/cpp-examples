@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+#ifdef __linux__
+
 #include <map>
 #include <list>
 
@@ -36,3 +38,5 @@ private:
 	std::list<int> signalsReceived_;
 	std::map<int, SignalHandler*> signalHandlers_;
 };
+
+#endif
