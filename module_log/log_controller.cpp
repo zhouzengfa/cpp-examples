@@ -36,14 +36,21 @@ LogModule& LogModule::getInst()
 int LogModule::RegisterModule(const char* szName)
 {
 	std::string moduleName(szName);
+	int index = -1;
 	for (size_t i= 0; i < m_modules.size(); ++i)
 	{
 		if (moduleName == m_modules[i])
-			return i;
+		{
+			index = i;
+			break;
+		}
 	}
 
-	int index = m_modules.size();
-	m_modules.push_back(moduleName);
+	if (index < 0)
+	{
+		index = m_modules.size();
+		m_modules.push_back(moduleName);
+	}
 
 	if (index < m_length)
 	{

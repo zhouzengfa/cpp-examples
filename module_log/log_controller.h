@@ -44,5 +44,5 @@ private:																			\
 };																					\
 static logDefine##module logLevel;
 
-#define DEBUG_LOG logLevel.needLog() ? void(0) : LogMessageVoidify() & LogStream( __FUNCTION__, __LINE__, ELEVEL_DEBUG) << "["<<logLevel.getModuleName()<<"]"
-#define ERROR_LOG logLevel.needLog() ? void(0) : LogMessageVoidify() & LogStream( __FUNCTION__, __LINE__, ELEVEL_ERROR) << "["<<logLevel.getModuleName()<<"]"
+#define DEBUG_LOG !logLevel.needLog() ? void(0) : LogMessageVoidify() & LogStream( __FUNCTION__, __LINE__, ELEVEL_DEBUG) << "["<<logLevel.getModuleName()<<"]"
+#define ERROR_LOG !logLevel.needLog() ? void(0) : LogMessageVoidify() & LogStream( __FUNCTION__, __LINE__, ELEVEL_ERROR) << "["<<logLevel.getModuleName()<<"]"
