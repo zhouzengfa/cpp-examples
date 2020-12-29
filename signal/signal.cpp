@@ -1,15 +1,15 @@
 ﻿#include "signal.h"
 #include <iostream>
 #include <signal.h>
+#include "../module_log/log_controller.h"
 
-#define debug_log std::cout<< __FUNCTION__ <<" "
-#define error_log std::err<<__FUNCTION__<<" "
+DEFINE_LOG(SignalMgr)
 
 void handler(int sigNum);
 
 bool SignalDefaultHandler::process(int sigNum)
 {
-	debug_log << "sigNum:" << sigNum << std::endl;
+	DEBUG_LOG << "sigNum:" << sigNum;
 	return true;
 }
 
@@ -36,7 +36,7 @@ SignalMgr& SignalMgr::getInst()
 
 void SignalMgr::onSignal(int sigNum)
 {
-	debug_log << "receive signal:" << sigNum << std::endl;
+	DEBUG_LOG << "receive signal:" << sigNum;
 	signalsReceived_.push_back(sigNum);
 	process();
 }
@@ -46,7 +46,7 @@ bool SignalMgr::installSignal(int sigNum, SignalHandler* pHandler)
 	auto iter = signalHandlers_.find(sigNum);
 	if (iter != signalHandlers_.end())
 	{
-		debug_log << "signal:" << sigNum << " was override"<<std::endl;
+		DEBUG_LOG << "signal:" << sigNum << " was override";
 		delete (iter->second);
 		signalHandlers_.erase(iter);
 	}
@@ -60,7 +60,7 @@ bool SignalMgr::installSignal(int sigNum, SignalHandler* pHandler)
 	sigfillset(&(action.sa_mask));
 	::sigaction(sigNum, &action, NULL);
 
-	debug_log << "install signal:" << sigNum << std::endl;
+	DEBUG_LOG << "install signal:" << sigNum;
 
 	return true;
 }
@@ -70,14 +70,14 @@ bool SignalMgr::uninstallSignal(int sigNum)
 	auto iter = signalHandlers_.find(sigNum);
 	if (iter != signalHandlers_.end())
 	{
-		debug_log << "signal:" << sigNum << " was uninstalled."<< std::endl;
+		DEBUG_LOG << "signal:" << sigNum << " was uninstalled.";
 		delete (iter->second);
 		signalHandlers_.erase(iter);
 
 		return true;
 	}
 
-	debug_log << "can't find signal:" << sigNum << std::endl;
+	DEBUG_LOG << "can't find signal:" << sigNum;
 	return false;
 }
 
@@ -86,7 +86,7 @@ bool SignalMgr::ignoreSignal(int sigNum)
 	if (signal(sigNum, SIG_IGN) == SIG_ERR)
 		return false;
 
-	debug_log << "signal:" << sigNum << " was ignore." << std::endl;
+	DEBUG_LOG << "signal:" << sigNum << " was ignore.";
 	return true;
 }
 
@@ -97,7 +97,7 @@ bool SignalMgr::process()
 		auto iter = signalHandlers_.find(sig);
 		if (iter == signalHandlers_.end())
 		{
-			debug_log << "can't find signal(" << sig << ") handler.";
+			DEBUG_LOG << "can't find signal(" << sig << ") handler.";
 			continue;
 		}
 
