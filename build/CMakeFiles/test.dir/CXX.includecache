@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/cpp-examples/mprotect/mprotect.cpp
+unistd.h
+-
+signal.h
+-
+stdio.h
+-
+malloc.h
+-
+stdlib.h
+-
+errno.h
+-
+sys/mman.h
+-
+stdio.h
+-
+stdlib.h
+-
+unistd.h
+-
+sys/mman.h
+-
+

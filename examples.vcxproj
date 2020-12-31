@@ -133,6 +133,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="module_log\log_controller.cpp" />
     <ClCompile Include="module_log\log_stream.cpp" />
+    <ClCompile Include="mprotect\mprotect.cpp" />
     <ClCompile Include="signal\signal.cpp" />
     <ClCompile Include="topk\topk.cpp" />
   </ItemGroup>
@@ -140,6 +141,7 @@
     <ClInclude Include="argp_parse\argp_parse.h" />
     <ClInclude Include="module_log\log_controller.h" />
     <ClInclude Include="module_log\log_stream.h" />
+    <ClInclude Include="mprotect\mprotect.h" />
     <ClInclude Include="signal\signal.h" />
     <ClInclude Include="topk\topk.h" />
   </ItemGroup>
