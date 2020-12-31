@@ -7,6 +7,8 @@
 #IncludeRegexTransform: 
 
 /home/cpp-examples/mprotect/mprotect.cpp
+mprotect.h
+/home/cpp-examples/mprotect/mprotect.h
 unistd.h
 -
 signal.h
@@ -21,12 +23,8 @@ errno.h
 -
 sys/mman.h
 -
-stdio.h
+gtest/gtest.h
 -
-stdlib.h
--
-unistd.h
--
-sys/mman.h
--
+
+/home/cpp-examples/mprotect/mprotect.h
 

@@ -12,6 +12,7 @@ CMakeFiles/test.dir/module_log/log_stream.cpp.o
  /home/cpp-examples/module_log/log_stream.cpp
 CMakeFiles/test.dir/mprotect/mprotect.cpp.o
  /home/cpp-examples/mprotect/mprotect.cpp
+ /home/cpp-examples/mprotect/mprotect.h
 CMakeFiles/test.dir/signal/signal.cpp.o
  /home/cpp-examples/module_log/log_controller.h
  /home/cpp-examples/module_log/log_stream.h

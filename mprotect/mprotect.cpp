@@ -1,5 +1,8 @@
 ﻿//mmc.cpp 以下两个例子都是可以使用，只是逻辑处理有点差异
-#if 1 //**************示例1*************
+
+#if __linux__
+
+#include "mprotect.h"
 #include <unistd.h>
 #include <signal.h>
 #include <stdio.h>
@@ -7,12 +10,12 @@
 #include <stdlib.h>
 #include <errno.h>
 #include <sys/mman.h>
+#include <gtest/gtest.h>
 
 #define handle_error(msg) \
    do { perror(msg); exit(EXIT_FAILURE); } while (0)
 
 static char *buffer;
-
 static void handler(int sig, siginfo_t *si, void *unused)
 {
    printf("Got SIGSEGV at address: 0x%lx\n",
@@ -20,7 +23,7 @@ static void handler(int sig, siginfo_t *si, void *unused)
    exit(EXIT_FAILURE);
 }
 
-int main1(int argc, char *argv[])
+void MProtect::examp1()
 {
 	char *p;
 	int pagesize;
@@ -69,37 +72,40 @@ int main1(int argc, char *argv[])
 	printf("End of region:        0x%lx\n", (long) buffer+i);
 #endif
 	printf("Loop completed\n");     /* Should never happen */
-	exit(EXIT_SUCCESS);
+	//exit(EXIT_SUCCESS);
+
 }
 
-#else //**************示例2*************
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <sys/mman.h>
+TEST(MProtect, example1)
+{
+	//MProtect::examp1();
+}
 
 int *g_ps32Result;
-
 void add(int a, int b)
 {
     *g_ps32Result = a + b;
 }
-
 void subtract(int a, int b)
 {
     *g_ps32Result = a - b;
 }
 
-int main2()
+TEST(MProtect, example2)
 {
-    int ret;
+	MProtect::examp2();
+}
+
+void MProtect::examp2()
+{
+	 int ret;
     int l_s32PageSize;
     
     /* 获取操作系统一个页的大小, 一般是 4KB == 4096 */
     l_s32PageSize = sysconf(_SC_PAGE_SIZE);
     if (l_s32PageSize == -1) {
         perror("sysconf fail");
-        return -1;
+		return;
     }
     printf("One Page Size is:%d Byte\r\n", l_s32PageSize);
 
@@ -108,7 +114,7 @@ int main2()
     if (ret != 0) {
         /* posix_memalign 返回失败不会设置系统的errno, 不能用perror输出错误 */
         printf("posix_memalign fail, ret %u\r\n", ret);
-        return -1;
+		return;
     }
     printf("posix_memalign mem %p\r\n", g_ps32Result);
 
@@ -120,7 +126,7 @@ int main2()
     ret = mprotect(g_ps32Result, l_s32PageSize, PROT_READ);
     if (ret == -1) {
         perror("mprotect");
-        return -1;
+		return;
     }
 
     subtract(1, 1); // 结果写入 *g_ps32Result, 但 *g_ps32Result 的内存地址已设为只读, 所以会引发segment fault
@@ -128,7 +134,6 @@ int main2()
 
     /* 申请一定记得释放 */
     free(g_ps32Result);
-    return 0;
 }
 
 #endif

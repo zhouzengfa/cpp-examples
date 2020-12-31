@@ -11,6 +11,7 @@ CMakeFiles/test.dir/module_log/log_controller.cpp.o: ../module_log/log_controlle
 CMakeFiles/test.dir/module_log/log_stream.cpp.o: ../module_log/log_stream.cpp
 
 CMakeFiles/test.dir/mprotect/mprotect.cpp.o: ../mprotect/mprotect.cpp
+CMakeFiles/test.dir/mprotect/mprotect.cpp.o: ../mprotect/mprotect.h
 
 CMakeFiles/test.dir/signal/signal.cpp.o: ../module_log/log_controller.h
 CMakeFiles/test.dir/signal/signal.cpp.o: ../module_log/log_stream.h
