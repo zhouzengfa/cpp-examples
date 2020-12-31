@@ -93,7 +93,7 @@ void subtract(int a, int b)
 
 TEST(MProtect, example2)
 {
-	MProtect::examp2();
+	//MProtect::examp2();
 }
 
 void MProtect::examp2()
