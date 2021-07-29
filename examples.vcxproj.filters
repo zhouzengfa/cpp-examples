@@ -13,6 +13,9 @@
     <Filter Include="module_log">
       <UniqueIdentifier>{19b5c74f-da7c-4ae7-97fb-aa902246567d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="fixpoint">
+      <UniqueIdentifier>{39325c80-e016-4860-ad41-fb0c41c9686c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="topk\topk.cpp">
@@ -27,6 +30,9 @@
     </ClCompile>
     <ClCompile Include="module_log\log_stream.cpp">
       <Filter>module_log</Filter>
+    </ClCompile>
+    <ClCompile Include="fixpoint\vfactor.cpp">
+      <Filter>fixpoint</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -44,6 +50,9 @@
     </ClInclude>
     <ClInclude Include="module_log\log_stream.h">
       <Filter>module_log</Filter>
+    </ClInclude>
+    <ClInclude Include="fixpoint\vfactor.h">
+      <Filter>fixpoint</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

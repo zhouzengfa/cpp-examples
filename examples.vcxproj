@@ -130,6 +130,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="fixpoint\vfactor.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="module_log\log_controller.cpp" />
     <ClCompile Include="module_log\log_stream.cpp" />
@@ -138,6 +139,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="argp_parse\argp_parse.h" />
+    <ClInclude Include="fixpoint\vfactor.h" />
     <ClInclude Include="module_log\log_controller.h" />
     <ClInclude Include="module_log\log_stream.h" />
     <ClInclude Include="signal\signal.h" />

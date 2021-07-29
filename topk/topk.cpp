@@ -1,5 +1,8 @@
 ﻿#include "topk.h"
 #include <gtest/gtest.h>
+#include "../module_log/log_controller.h"
+
+DEFINE_LOG(TopK)
 
 class A
 {
