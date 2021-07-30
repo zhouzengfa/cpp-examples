@@ -1,7 +1,7 @@
 ﻿#include "FixedPointFloat.h"
 #include "../protable/portable.h"
 #include "../module_log/log_controller.h"
-#include "gtest.h"
+#include <gtest/gtest.h>
 
 DEFINE_LOG(FixedPointFloat)
 
