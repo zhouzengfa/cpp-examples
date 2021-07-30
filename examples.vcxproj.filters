@@ -1,76 +1,88 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="argp_parse">
-      <UniqueIdentifier>{fce706e3-db43-4d89-8ea2-4932b6bc2aa7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="topk">
-      <UniqueIdentifier>{c9a2cf75-49af-4edc-9829-c92d26a2ccaf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="signal">
-      <UniqueIdentifier>{01feaa8c-97ae-4351-9f29-3567385e7bdf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="module_log">
-      <UniqueIdentifier>{19b5c74f-da7c-4ae7-97fb-aa902246567d}</UniqueIdentifier>
-    </Filter>
-<<<<<<< HEAD
-    <Filter Include="fixpoint">
-      <UniqueIdentifier>{39325c80-e016-4860-ad41-fb0c41c9686c}</UniqueIdentifier>
-=======
-    <Filter Include="mprotect">
-      <UniqueIdentifier>{a1854bed-94fb-4446-a2a5-484f98007b5b}</UniqueIdentifier>
->>>>>>> e290a817a7bd41480907b3a9358c02d057576800
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="topk\topk.cpp">
       <Filter>topk</Filter>
     </ClCompile>
-    <ClCompile Include="signal\signal.cpp">
-      <Filter>signal</Filter>
-    </ClCompile>
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="module_log\log_controller.cpp">
       <Filter>module_log</Filter>
     </ClCompile>
     <ClCompile Include="module_log\log_stream.cpp">
       <Filter>module_log</Filter>
     </ClCompile>
-<<<<<<< HEAD
+    <ClCompile Include="signal\signal.cpp">
+      <Filter>signal</Filter>
+    </ClCompile>
     <ClCompile Include="fixpoint\vfactor.cpp">
       <Filter>fixpoint</Filter>
-=======
+    </ClCompile>
     <ClCompile Include="mprotect\mprotect.cpp">
       <Filter>mprotect</Filter>
->>>>>>> e290a817a7bd41480907b3a9358c02d057576800
+    </ClCompile>
+    <ClCompile Include="fixpoint\FixedPointFloat.cpp">
+      <Filter>fixpoint</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="topk\topk.h">
       <Filter>topk</Filter>
     </ClInclude>
-    <ClInclude Include="signal\signal.h">
-      <Filter>signal</Filter>
-    </ClInclude>
     <ClInclude Include="argp_parse\argp_parse.h">
       <Filter>argp_parse</Filter>
-    </ClInclude>
-    <ClInclude Include="module_log\log_controller.h">
-      <Filter>module_log</Filter>
     </ClInclude>
     <ClInclude Include="module_log\log_stream.h">
       <Filter>module_log</Filter>
     </ClInclude>
-<<<<<<< HEAD
+    <ClInclude Include="module_log\log_controller.h">
+      <Filter>module_log</Filter>
+    </ClInclude>
+    <ClInclude Include="signal\signal.h">
+      <Filter>signal</Filter>
+    </ClInclude>
     <ClInclude Include="fixpoint\vfactor.h">
       <Filter>fixpoint</Filter>
-=======
+    </ClInclude>
     <ClInclude Include="mprotect\mprotect.h">
       <Filter>mprotect</Filter>
->>>>>>> e290a817a7bd41480907b3a9358c02d057576800
+    </ClInclude>
+    <ClInclude Include="protable\linux_portable.h">
+      <Filter>protable</Filter>
+    </ClInclude>
+    <ClInclude Include="protable\portable.h">
+      <Filter>protable</Filter>
+    </ClInclude>
+    <ClInclude Include="protable\win_portable.h">
+      <Filter>protable</Filter>
+    </ClInclude>
+    <ClInclude Include="fixpoint\FixedPointFloat.h">
+      <Filter>fixpoint</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="topk">
+      <UniqueIdentifier>{bbda4e0c-09c1-4376-a2bc-23b4c1a95685}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="argp_parse">
+      <UniqueIdentifier>{1b06284f-10ca-4a87-a943-f30fa7943f75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="module_log">
+      <UniqueIdentifier>{9810178a-b0c2-4ee8-96ea-93386bab5100}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="signal">
+      <UniqueIdentifier>{47c39076-0d11-45d5-a12c-61169bb47e30}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="fixpoint">
+      <UniqueIdentifier>{40594004-1715-4d83-aaf1-a29ec6fd3a8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="mprotect">
+      <UniqueIdentifier>{f8fe3312-9e44-4ab1-ae76-1a43d3bde14f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="protable">
+      <UniqueIdentifier>{bc59c394-8afd-4467-b30f-c0803b83e2f6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

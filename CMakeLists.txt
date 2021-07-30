@@ -26,6 +26,7 @@ aux_source_directory(./signal DIR_SOURCES)
 aux_source_directory(./module_log DIR_SOURCES)
 aux_source_directory(./fixpoint DIR_SOURCES)
 aux_source_directory(./mprotect DIR_SOURCES)
+aux_source_directory(./protable DIR_SOURCES)
 
 # 库
 #target_link_libraries (test ${EXTRA_LIBS})

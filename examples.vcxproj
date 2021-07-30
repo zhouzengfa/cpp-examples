@@ -73,10 +73,11 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <Optimization>Disabled</Optimization>
+      <Optimization>MaxSpeed</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(MSBuildProjectDirectory)\th3rd\include\gtest;$(MSBuildProjectDirectory)\th3rd\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -87,11 +88,12 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <Optimization>Disabled</Optimization>
+      <Optimization>MaxSpeed</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(MSBuildProjectDirectory)\th3rd\include\gtest;$(MSBuildProjectDirectory)\th3rd\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -102,11 +104,13 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <Optimization>MaxSpeed</Optimization>
+      <Optimization>Disabled</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(MSBuildProjectDirectory)\th3rd\include\gtest;$(MSBuildProjectDirectory)\th3rd\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -122,6 +126,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(MSBuildProjectDirectory)\th3rd\include\gtest;$(MSBuildProjectDirectory)\th3rd\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -130,6 +135,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="fixpoint\FixedPointFloat.cpp" />
     <ClCompile Include="fixpoint\vfactor.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="module_log\log_controller.cpp" />
@@ -140,10 +146,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="argp_parse\argp_parse.h" />
+    <ClInclude Include="fixpoint\FixedPointFloat.h" />
     <ClInclude Include="fixpoint\vfactor.h" />
     <ClInclude Include="module_log\log_controller.h" />
     <ClInclude Include="module_log\log_stream.h" />
     <ClInclude Include="mprotect\mprotect.h" />
+    <ClInclude Include="protable\linux_portable.h" />
+    <ClInclude Include="protable\portable.h" />
+    <ClInclude Include="protable\win_portable.h" />
     <ClInclude Include="signal\signal.h" />
     <ClInclude Include="topk\topk.h" />
   </ItemGroup>

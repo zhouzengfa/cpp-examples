@@ -4,12 +4,14 @@ class VFactor
 {
 	typedef long IntPart;
 	typedef long FactPart;
-private:
-	long nom;
-	long den;
+	typedef long long int64_t;
 
-	static const long mask_ = 9223372036854775807L;
-	static const long upper_ = 16777215L;
+private:
+	int64_t nom;
+	int64_t den;
+
+	static const int64_t mask_ = 9223372036854775807L;
+	static const int64_t upper_ = 16777215L;
 
 public:
 	//int roundInt()
@@ -60,7 +62,7 @@ public:
 		return VFactor(den, nom);
 	}
 
-	VFactor(long n, long d)
+	VFactor(int64_t n, int64_t d)
 	{
 		nom = n;
 		den = d;
@@ -77,33 +79,33 @@ public:
 
 	friend bool operator <(const VFactor& a, const VFactor& b)
 	{
-		long num = a.nom * b.den;
-		long num2 = b.nom * a.den;
-		bool flag = b.den > 0L ^ a.den > 0L;
+		int64_t num = a.nom * b.den;
+		int64_t num2 = b.nom * a.den;
+		bool flag = (b.den > 0L) ^ (a.den > 0L);
 		return (!flag) ? (num < num2) : (num > num2);
 	}
 
 	friend bool operator >(const VFactor& a, const VFactor& b)
 	{
-		long num = a.nom * b.den;
-		long num2 = b.nom * a.den;
-		bool flag = b.den > 0L ^ a.den > 0L;
+		int64_t num = a.nom * b.den;
+		int64_t num2 = b.nom * a.den;
+		bool flag = (b.den > 0L) ^ (a.den > 0L);
 		return (!flag) ? (num > num2) : (num < num2);
 	}
 
 	friend bool operator <=(const VFactor& a, const VFactor& b)
 	{
-		long num = a.nom * b.den;
-		long num2 = b.nom * a.den;
-		bool flag = b.den > 0L ^ a.den > 0L;
+		int64_t num = a.nom * b.den;
+		int64_t num2 = b.nom * a.den;
+		bool flag = (b.den > 0L) ^ (a.den > 0L);
 		return (!flag) ? (num <= num2) : (num >= num2);
 	}
 
 	friend bool operator >=(const VFactor& a, const VFactor& b)
 	{
-		long num = a.nom * b.den;
-		long num2 = b.nom * a.den;
-		bool flag = b.den > 0L ^ a.den > 0L;
+		int64_t num = a.nom * b.den;
+		int64_t num2 = b.nom * a.den;
+		bool flag = (b.den > 0L) ^ (a.den > 0L);
 		return (!flag) ? (num >= num2) : (num <= num2);
 	}
 
@@ -117,40 +119,40 @@ public:
 		return a.nom * b.den != b.nom * a.den;
 	}
 
-	friend bool operator <(VFactor a, long b)
+	friend bool operator <(VFactor a, int64_t b)
 	{
-		long num = a.nom;
-		long num2 = b * a.den;
+		int64_t num = a.nom;
+		int64_t num2 = b * a.den;
 		return (a.den <= 0L) ? (num > num2) : (num < num2);
 	}
 
-	friend bool operator >(VFactor a, long b)
+	friend bool operator >(VFactor a, int64_t b)
 	{
-		long num = a.nom;
-		long num2 = b * a.den;
+		int64_t num = a.nom;
+		int64_t num2 = b * a.den;
 		return (a.den <= 0L) ? (num < num2) : (num > num2);
 	}
 
-	friend bool operator <=(VFactor a, long b)
+	friend bool operator <=(VFactor a, int64_t b)
 	{
-		long num = a.nom;
-		long num2 = b * a.den;
+		int64_t num = a.nom;
+		int64_t num2 = b * a.den;
 		return (a.den <= 0L) ? (num >= num2) : (num <= num2);
 	}
 
-	friend bool operator >=(VFactor a, long b)
+	friend bool operator >=(VFactor a, int64_t b)
 	{
-		long num = a.nom;
-		long num2 = b * a.den;
+		int64_t num = a.nom;
+		int64_t num2 = b * a.den;
 		return (a.den <= 0L) ? (num <= num2) : (num >= num2);
 	}
 
-	friend bool operator ==(VFactor a, long b)
+	friend bool operator ==(VFactor a, int64_t b)
 	{
 		return a.nom == b * a.den;
 	}
 
-	friend bool operator !=(VFactor a, long b)
+	friend bool operator !=(VFactor a, int64_t b)
 	{
 		return a.nom != b * a.den;
 	}
@@ -160,7 +162,15 @@ public:
 		return VFactor(a.nom * b.den + b.nom * a.den, a.den * b.den);
 	}
 
-	friend VFactor& operator +(VFactor& a, long b)
+	VFactor& operator+=(const VFactor& a)
+	{
+		nom = nom * a.den + den * a.nom;
+		den *= a.den;
+		strip();
+		return *this;
+	}
+
+	friend VFactor& operator +(VFactor& a, int64_t b)
 	{
 		a.nom += b * a.den;
 		return a;
@@ -173,22 +183,32 @@ public:
 
 	friend VFactor operator *(const VFactor& a, const VFactor& b)
 	{
-		return VFactor(a.nom * b.nom, a.den * b.den);
+		VFactor tmp(a.nom * b.nom, a.den * b.den);
+		tmp.strip();
+		return tmp;
 	}
 
-	friend VFactor& operator -(VFactor& a, long b)
+	VFactor& operator *=(const VFactor& a)
+	{
+		nom *= a.nom;
+		den *= a.den;
+		strip();
+		return *this;
+	}
+
+	friend VFactor& operator -(VFactor& a, int64_t b)
 	{
 		a.nom -= b * a.den;
 		return a;
 	}
 
-	friend VFactor& operator *(VFactor& a, long b)
+	friend VFactor& operator *(VFactor& a, int64_t b)
 	{
 		a.nom *= b;
 		return a;
 	}
 
-	friend VFactor& operator /(VFactor& a, long b)
+	friend VFactor& operator /(VFactor& a, int64_t b)
 	{
 		a.den *= b;
 		return a;
