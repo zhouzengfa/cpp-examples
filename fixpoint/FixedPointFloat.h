@@ -24,8 +24,8 @@ private:
 	StorageType _num;
 	double _show;
 	const static CalcType c_one;
-	const static CalcType c_intMask;
-	const static CalcType c_fracMask;
+	const static StorageType c_intMask;
+	const static StorageType c_fracMask;
 
 private:
 	typedef unsigned short TableType;

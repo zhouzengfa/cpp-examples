@@ -34,8 +34,8 @@ FixedPointFloat& FixedPointFloat::operator --() { _num -= c_one; return (*this);
 FixedPointFloat FixedPointFloat::operator -() { FixedPointFloat ret(*this); ret *= FixedPointFloat(-1); return ret; }
 
 const FixedPointFloat::CalcType FixedPointFloat::c_one = (FixedPointFloat::CalcType)1 << FRACTION_BITS;
-const FixedPointFloat::CalcType FixedPointFloat::c_intMask = ((FixedPointFloat::CalcType)1 << INTEGER_BITS) - 1;
-const FixedPointFloat::CalcType FixedPointFloat::c_fracMask = ((FixedPointFloat::CalcType)1 << FRACTION_BITS) - 1;
+const FixedPointFloat::StorageType FixedPointFloat::c_intMask = ((FixedPointFloat::StorageType)1 << INTEGER_BITS) - 1;
+const FixedPointFloat::StorageType FixedPointFloat::c_fracMask = ((FixedPointFloat::StorageType)1 << FRACTION_BITS) - 1;
 
 const FixedPointFloat::TableType FixedPointFloat::c_sinTableCount = 803;
 const FixedPointFloat::TableType FixedPointFloat::c_sinTable[FixedPointFloat::c_sinTableCount] = {
@@ -352,7 +352,7 @@ TEST(FixedPointFloat, testAdd)
 	auto s = Port_GetTimeOfDay();
 	for (int i = 0; i < 20000000; ++i)
 	{
-		f3 /= f1/f2;
+		f3 /= f1*f2;
 	}
 	auto cost = Port_GetTimeOfDay() - s;
 
