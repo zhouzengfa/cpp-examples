@@ -5,6 +5,8 @@
 
 DEFINE_LOG(FixedPointFloat)
 
+#define USE_NEW_FIXPOINT_MULT 1
+
 const static FixedPointFloat PI("3.141592653");
 const static FixedPointFloat HalfPI("1.570796326");
 const static FixedPointFloat TwoPI("6.283185307");
@@ -135,8 +137,6 @@ void FixedPointFloat::LoadFromClientValue(float value)
 	_num = ((StorageType)(value * c_one + (value >= 0 ? 0.5 : -0.5)));
 }
 
-void FixedPointFloat::RefreshShowValue() {_show = (double)_num / (double)c_one; }
-
 FixedPointFloat& FixedPointFloat::operator += (const FixedPointFloat& x)
 {
 	_num += x._num;
@@ -163,45 +163,58 @@ FixedPointFloat operator - (const FixedPointFloat& a, const FixedPointFloat& b)
 
 FixedPointFloat operator * (const FixedPointFloat& a, const FixedPointFloat& b)
 {
+#ifdef USE_NEW_FIXPOINT_MULT
 	FixedPointFloat::StorageType ret = (a._num * b._num) >> FRACTION_BITS;
 	if (ret > FixedPointFloat::c_intMask)
 	{
 		ret = (FixedPointFloat::GetIntPart(ret) << FRACTION_BITS) +
 		FixedPointFloat::GetFracPart(ret);
 	}
-	//bool isLhsNegative = a._num < 0;
-	//bool isRhsNegative = b._num < 0;
-	//FixedPointFloat::CalcType lhs = (FixedPointFloat::CalcType)(isLhsNegative ? (-a._num) : a._num);
-	//FixedPointFloat::CalcType rhs = (FixedPointFloat::CalcType)(isRhsNegative ? (-b._num) : b._num);
-	//FixedPointFloat::CalcType lhs_int = FixedPointFloat::GetIntPart(lhs);
-	//FixedPointFloat::CalcType lhs_frac = FixedPointFloat::GetFracPart(lhs);
-	//FixedPointFloat::CalcType rhs_int = FixedPointFloat::GetIntPart(rhs);
-	//FixedPointFloat::CalcType rhs_frac = FixedPointFloat::GetFracPart(rhs);
-
-	//FixedPointFloat::CalcType integer = (lhs_int * rhs_int) & FixedPointFloat::c_intMask;
-	//FixedPointFloat::CalcType fraction =
-	//	lhs_int * rhs_frac +
-	//	lhs_frac * rhs_int +
-	//	((lhs_frac * rhs_frac) >> FRACTION_BITS);
-
-	//FixedPointFloat::CalcType result = (integer << FRACTION_BITS);
-	//result = result + fraction;
-
-	//FixedPointFloat::StorageType ret = (FixedPointFloat::StorageType)result;
-	//if ((isLhsNegative && !isRhsNegative) || (!isLhsNegative && isRhsNegative))
-	//{
-	//	ret = -ret;
-	//}
-	//return FixedPointFloat(ret);
 	return ret;
+#else
+	bool isLhsNegative = a._num < 0;
+	bool isRhsNegative = b._num < 0;
+	FixedPointFloat::CalcType lhs = (FixedPointFloat::CalcType)(isLhsNegative ? (-a._num) : a._num);
+	FixedPointFloat::CalcType rhs = (FixedPointFloat::CalcType)(isRhsNegative ? (-b._num) : b._num);
+	FixedPointFloat::CalcType lhs_int = FixedPointFloat::GetIntPart(lhs);
+	FixedPointFloat::CalcType lhs_frac = FixedPointFloat::GetFracPart(lhs);
+	FixedPointFloat::CalcType rhs_int = FixedPointFloat::GetIntPart(rhs);
+	FixedPointFloat::CalcType rhs_frac = FixedPointFloat::GetFracPart(rhs);
+
+	FixedPointFloat::CalcType integer = (lhs_int * rhs_int) & FixedPointFloat::c_intMask;
+	FixedPointFloat::CalcType fraction =
+		lhs_int * rhs_frac +
+		lhs_frac * rhs_int +
+		((lhs_frac * rhs_frac) >> FRACTION_BITS);
+
+	FixedPointFloat::CalcType result = (integer << FRACTION_BITS);
+	result = result + fraction;
+
+	FixedPointFloat::StorageType ret = (FixedPointFloat::StorageType)result;
+	if ((isLhsNegative && !isRhsNegative) || (!isLhsNegative && isRhsNegative))
+	{
+		ret = -ret;
+	}
+	return FixedPointFloat(ret);
+#endif
 }
 
 FixedPointFloat& FixedPointFloat::operator *= (const FixedPointFloat& x)
 {
+#ifdef USE_NEW_FIXPOINT_MULT
+	_num = (_num * x._num) >> FRACTION_BITS;
+	if (_num > FixedPointFloat::c_intMask)
+	{
+		_num = (FixedPointFloat::GetIntPart(_num) << FRACTION_BITS) +
+			FixedPointFloat::GetFracPart(_num);
+	}
+	return *this;
+#else
 	FixedPointFloat result = (*this) * x;
 	_num = result._num;
 	RefreshShowValue();
 	return (*this);
+#endif
 }
 
 FixedPointFloat operator / (const FixedPointFloat& a, const FixedPointFloat& b)
@@ -335,11 +348,11 @@ FixedPointFloat f2("-3.4392");
 
 TEST(FixedPointFloat, testAdd)
 {
-	FixedPointFloat f3;
+	FixedPointFloat f3("1.204");
 	auto s = Port_GetTimeOfDay();
 	for (int i = 0; i < 20000000; ++i)
 	{
-		f3 += f1*f2;
+		f3 *= f1*f2;
 	}
 	auto cost = Port_GetTimeOfDay() - s;
 

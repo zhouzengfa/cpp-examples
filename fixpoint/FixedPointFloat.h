@@ -45,7 +45,7 @@ public:
 private:
 	FixedPointFloat(StorageType);
 
-	void RefreshShowValue();
+	inline void RefreshShowValue() {_show = (double)_num / (double)c_one; }
 
 public:
 	friend FixedPointFloat operator + (const FixedPointFloat&, const FixedPointFloat&);
