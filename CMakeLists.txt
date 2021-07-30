@@ -2,7 +2,7 @@ cmake_minimum_required (VERSION 2.8)
 project (test) 
 
  # 设置c++编译选项
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -Wall -g -std=c++11 -pthread")
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0 -Wall -pthread -g -std=c++11 ")
 
 # 添加预处理器定义
 add_definitions(-DDEBUG) 
@@ -24,7 +24,11 @@ aux_source_directory(. DIR_SOURCES)
 aux_source_directory(./topk DIR_SOURCES)
 aux_source_directory(./signal DIR_SOURCES)
 aux_source_directory(./module_log DIR_SOURCES)
+<<<<<<< HEAD
 aux_source_directory(./fixpoint DIR_SOURCES)
+=======
+aux_source_directory(./mprotect DIR_SOURCES)
+>>>>>>> e290a817a7bd41480907b3a9358c02d057576800
 
 # 库
 #target_link_libraries (test ${EXTRA_LIBS})

@@ -13,8 +13,13 @@
     <Filter Include="module_log">
       <UniqueIdentifier>{19b5c74f-da7c-4ae7-97fb-aa902246567d}</UniqueIdentifier>
     </Filter>
+<<<<<<< HEAD
     <Filter Include="fixpoint">
       <UniqueIdentifier>{39325c80-e016-4860-ad41-fb0c41c9686c}</UniqueIdentifier>
+=======
+    <Filter Include="mprotect">
+      <UniqueIdentifier>{a1854bed-94fb-4446-a2a5-484f98007b5b}</UniqueIdentifier>
+>>>>>>> e290a817a7bd41480907b3a9358c02d057576800
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -31,8 +36,13 @@
     <ClCompile Include="module_log\log_stream.cpp">
       <Filter>module_log</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="fixpoint\vfactor.cpp">
       <Filter>fixpoint</Filter>
+=======
+    <ClCompile Include="mprotect\mprotect.cpp">
+      <Filter>mprotect</Filter>
+>>>>>>> e290a817a7bd41480907b3a9358c02d057576800
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -51,8 +61,13 @@
     <ClInclude Include="module_log\log_stream.h">
       <Filter>module_log</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="fixpoint\vfactor.h">
       <Filter>fixpoint</Filter>
+=======
+    <ClInclude Include="mprotect\mprotect.h">
+      <Filter>mprotect</Filter>
+>>>>>>> e290a817a7bd41480907b3a9358c02d057576800
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
