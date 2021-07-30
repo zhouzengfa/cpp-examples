@@ -208,6 +208,7 @@ FixedPointFloat& FixedPointFloat::operator *= (const FixedPointFloat& x)
 		_num = (FixedPointFloat::GetIntPart(_num) << FRACTION_BITS) +
 			FixedPointFloat::GetFracPart(_num);
 	}
+	RefreshShowValue();
 	return *this;
 #else
 	FixedPointFloat result = (*this) * x;
@@ -224,8 +225,7 @@ FixedPointFloat operator / (const FixedPointFloat& a, const FixedPointFloat& b)
 
 FixedPointFloat& FixedPointFloat::operator /= (const FixedPointFloat& x)
 {
-	FixedPointFloat result = (*this) / x;
-	_num = result._num;
+	_num = (_num << FRACTION_BITS) / x._num;
 	RefreshShowValue();
 	return (*this);
 }
@@ -352,7 +352,7 @@ TEST(FixedPointFloat, testAdd)
 	auto s = Port_GetTimeOfDay();
 	for (int i = 0; i < 20000000; ++i)
 	{
-		f3 *= f1*f2;
+		f3 /= f1/f2;
 	}
 	auto cost = Port_GetTimeOfDay() - s;
 
