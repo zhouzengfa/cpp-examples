@@ -10,7 +10,6 @@ DEFINE_LOG(FixedPointFloat)
 const static FixedPointFloat PI("3.141592653");
 const static FixedPointFloat HalfPI("1.570796326");
 const static FixedPointFloat TwoPI("6.283185307");
-const static uint64_t MASK = 4294967295L;
 
 inline FixedPointFloat::CalcType FixedPointFloat::GetIntPart(FixedPointFloat::CalcType x)
 {
@@ -165,10 +164,19 @@ FixedPointFloat operator * (const FixedPointFloat& a, const FixedPointFloat& b)
 {
 #ifdef USE_NEW_FIXPOINT_MULT
 	FixedPointFloat::StorageType ret = (a._num * b._num) >> FRACTION_BITS;
-	if (ret > FixedPointFloat::c_intMask)
+	if (ret > FixedPointFloat::c_intMask || ret < -FixedPointFloat::c_intMask)
 	{
+		int negative = 1;
+		if (ret < 0L)
+		{
+			negative = -1;
+			ret *= negative;
+		}
+
 		ret = (FixedPointFloat::GetIntPart(ret) << FRACTION_BITS) +
-		FixedPointFloat::GetFracPart(ret);
+			FixedPointFloat::GetFracPart(ret);
+
+		ret *= negative;
 	}
 	return ret;
 #else
@@ -352,22 +360,30 @@ TEST(FixedPointFloat, testAdd)
 	auto s = Port_GetTimeOfDay();
 	for (int i = 0; i < 20000000; ++i)
 	{
-		f3 /= f1*f2;
+		f3 =  f3*f1;
 	}
 	auto cost = Port_GetTimeOfDay() - s;
 
 	DEBUG_LOG << "cost:" << cost << " f3:" << double(f3);
 }
 
+TEST(FixedPointFloat, testValid)
+{
+	FixedPointFloat f3;
+	f3 = f1 - f2;
+	f3 = f1 + f2;
+}
 
 TEST(FixedPointFloat, testMinus)
 {
-
 	FixedPointFloat f3;
+	auto s = Port_GetTimeOfDay();
 	for (int i = 0; i < 20000000; ++i)
 	{
 		f3 = f1 - f2;
 	}
+	auto cost = Port_GetTimeOfDay() - s;
+	DEBUG_LOG << "cost:" << cost << " f3:" << double(f3);
 }
 
 //TEST(FixedPointFloat, testMulti)
